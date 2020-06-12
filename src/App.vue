@@ -6,11 +6,11 @@
         style="width: 100%; height: 100%; padding: 40px 0"
         :orientation="'horizontal'"
       >
-        <div class="albumPane">
+        <div style="width: 60%" class="albumPane">
           <AlbumList :albums="albums" @albumselected="onAlbumChange($event)" />
         </div>
-        <div class="songPane">
-          <!-- songlist component here -->
+        <div style="width: 40%" class="songPane">
+          <SongList :tracks="tracks" :currentAlbum="currentAlbum" />
         </div>
       </kendo-splitter>
     </section>
@@ -18,9 +18,10 @@
 </template>
 
 <script>
-//import { Splitter } from "@progress/kendo-layout-vue-wrapper";
+// import { Splitter } from "@progress/kendo-layout-vue-wrapper";
 import { getAlbumTracks, getAlbums } from "./utils.js";
 import AlbumList from "./components/AlbumList";
+import SongList from "./components/SongList";
 import Header from "./components/Header";
 
 export default {
@@ -34,6 +35,7 @@ export default {
   },
   components: {
     AlbumList,
+    SongList,
     Header
   },
   methods: {
@@ -59,7 +61,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 #app {
   font-family: "Muli", sans-serif;
   -webkit-font-smoothing: antialiased;
