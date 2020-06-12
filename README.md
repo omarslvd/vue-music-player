@@ -1,5 +1,7 @@
 # vue-music-player
 
+Code of the tutorial [Creating a Music Palyer Application Using Kendo UI and Vue](https://www.telerik.com/blogs/creating-music-player-application-kendo-ui-vue)
+
 ## Project setup
 ```
 npm install
