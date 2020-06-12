@@ -2,7 +2,7 @@
 <template>
   <header>
     <div class="brand">
-      <img src="../assets/images/logo.png" />
+      <img src="../assets/logo.png" />
       <h5>Just Music</h5>
     </div>
     <div class="nav-items">

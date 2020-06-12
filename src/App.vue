@@ -1,13 +1,13 @@
 <template>
   <main>
-    <!-- header component will come here -->
+    <Header />
     <section>
       <kendo-splitter
         style="width: 100%; height: 100%; padding: 40px 0"
         :orientation="'horizontal'"
       >
         <div class="albumPane">
-          <!-- album list here -->
+          <AlbumList :albums="albums" @albumselected="onAlbumChange($event)" />
         </div>
         <div class="songPane">
           <!-- songlist component here -->
@@ -18,7 +18,10 @@
 </template>
 
 <script>
-// import { Splitter } from "@progress/kendo-layout-vue-wrapper";
+//import { Splitter } from "@progress/kendo-layout-vue-wrapper";
+import { getAlbumTracks, getAlbums } from "./utils.js";
+import AlbumList from "./components/AlbumList";
+import Header from "./components/Header";
 
 export default {
   name: "app",
@@ -28,6 +31,30 @@ export default {
       currentAlbum: {},
       tracks: []
     };
+  },
+  components: {
+    AlbumList,
+    Header
+  },
+  methods: {
+    async currentAlbumTracks(id) {
+      const res = await getAlbumTracks(id);
+      const { items } = await res.json();
+      this.tracks = items;
+    },
+    onAlbumChange(album) {
+      const { id } = album;
+      this.currentAlbum = album;
+      this.currentAlbumTracks(id);
+    }
+  },
+  async mounted() {
+    const response = await getAlbums();
+    const { albums } = await response.json();
+    const { items } = albums;
+    this.currentAlbum = items[0];
+    this.albums = items;
+    this.currentAlbumTracks(this.currentAlbum.id);
   }
 };
 </script>
